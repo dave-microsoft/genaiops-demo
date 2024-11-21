@@ -119,3 +119,6 @@ funcignore
 
 # PyBuilder
 target/
+
+# Local File
+env.txt
