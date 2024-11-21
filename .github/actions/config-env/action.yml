@@ -163,27 +163,27 @@ runs:
           fi
 
           # Checking if the resource group exists
-          export AZURE_RESOURCE_GROUP=$(azd env get-values -e ${{ inputs.AZURE_ENV_NAME }} | grep AZURE_RESOURCE_GROUP  || true)
-          echo "Resource group: $AZURE_RESOURCE_GROUP"
-          echo "${{ inputs.AZURE_ENV_NAME }}"
-          if [ -z "$AZURE_RESOURCE_GROUP" ]; then
-            resource_group_exist=false
-          else
-            resource_group_exist=$(az group exists --name "$AZURE_RESOURCE_GROUP")  
-          fi        
-          echo "🔶 | Resource group ${AZURE_RESOURCE_GROUP:-'Undefined'} exist status: $resource_group_exist"
+          # export AZURE_RESOURCE_GROUP=$(azd env get-values -e ${{ inputs.AZURE_ENV_NAME }} | grep AZURE_RESOURCE_GROUP | cut -d'=' -f2 | tr -d '"' || true)
+          # echo "Resource group: $AZURE_RESOURCE_GROUP"
+          # echo "${{ inputs.AZURE_ENV_NAME }}"
+          # if [ -z "$AZURE_RESOURCE_GROUP" ]; then
+          #   resource_group_exist=false
+          # else
+          #   resource_group_exist=$(az group exists --name "$AZURE_RESOURCE_GROUP")  
+          # fi        
+          # echo "🔶 | Resource group ${AZURE_RESOURCE_GROUP:-'Undefined'} exist status: $resource_group_exist"
 
           # Previous deployment exists but the resource group doesn't. 
           # This situation occurs if you made a deployment and then deleted the resource group.
           # Resource group may also be empty because previous deployment finished with failure.
           # In both cases we recreate resources
-          if [ "$deployment_exists" = true ] && [ "$resource_group_exist" = false ]; then
-            echo "❌ | Deployment exists but resource group $AZURE_RESOURCE_GROUP doesn't."
-            exit 1
-            # azd down --force --purge
-            # rm -rf .azure
-            # azd init -e ${{ inputs.AZURE_ENV_NAME }} -l $AZURE_LOCATION -s $AZURE_SUBSCRIPTION_ID
-          fi           
+          # if [ "$deployment_exists" = true ] && [ "$resource_group_exist" = false ]; then
+          #   echo "❌ | Deployment exists but resource group $AZURE_RESOURCE_GROUP doesn't."
+          #   exit 1
+          #   # azd down --force --purge
+          #   # rm -rf .azure
+          #   # azd init -e ${{ inputs.AZURE_ENV_NAME }} -l $AZURE_LOCATION -s $AZURE_SUBSCRIPTION_ID
+          # fi           
 
           # Set environment variables by getting them from the GitHub environment or the last deployment. 
           # GitHub environment variables take precedence over those from the last deployment.
