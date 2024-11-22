@@ -109,6 +109,9 @@ def deploy_flow(endpoint_name, deployment_name):
         instance_type="Standard_DS3_v2",
         instance_count=1,
         environment_variables={
+            "AZURE_TENANT_ID": os.environ["AZURE_TENANT_ID"],
+            "AZURE_CLIENT_ID": os.environ["AZURE_CLIENT_ID"],
+            "AZURE_CLIENT_SECRET": os.environ["AZURE_CLIENT_SECRET"],
             "PRT_CONFIG_OVERRIDE": f"deployment.subscription_id={client.subscription_id},deployment.resource_group={client.resource_group_name},deployment.workspace_name={client.workspace_name},deployment.endpoint_name={endpoint_name},deployment.deployment_name={deployment_name}",
             "AZURE_SUBSCRIPTION_ID": os.environ["AZURE_SUBSCRIPTION_ID"],
             "AZURE_RESOURCE_GROUP": os.environ["AZURE_RESOURCE_GROUP"],
