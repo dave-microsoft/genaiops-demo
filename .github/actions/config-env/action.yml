@@ -163,7 +163,8 @@ runs:
           fi
 
           # Checking if the resource group exists
-          export AZURE_RESOURCE_GROUP=$(azd env get-values -e ${{ inputs.AZURE_ENV_NAME }} | grep AZURE_RESOURCE_GROUP | cut -d'=' -f2 | tr -d '"')
+          export AZURE_RESOURCE_GROUP="rg-genaiops-eus2-dev"
+          #=$(azd env get-values -e ${{ inputs.AZURE_ENV_NAME }} | grep AZURE_RESOURCE_GROUP | cut -d'=' -f2 | tr -d '"')
 
           echo "${{ inputs.AZURE_ENV_NAME }}"
           if [ -z "$AZURE_RESOURCE_GROUP" ]; then
